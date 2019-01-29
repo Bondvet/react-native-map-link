@@ -23,6 +23,7 @@ import { askAppChoice, checkOptions } from './utils'
  *     dialogMessage: string | undefined | null
  *     cancelText: string | undefined | null
  *     appsWhiteList: array | undefined | null
+ *     address: string | undefined | null
  * }} options
  */
 export async function showLocation (options) {
@@ -45,6 +46,7 @@ export async function showLocation (options) {
   let latlng = `${lat},${lng}`
   let title = options.title && options.title.length ? options.title : null
   let encodedTitle = encodeURIComponent(title)
+  let address = options.address && options.address.length ? encodeURIComponent(options.address) : null
   let app = options.app && options.app.length ? options.app : null
   let dialogTitle = options.dialogTitle && options.dialogTitle.length ? options.dialogTitle : 'Open in Maps'
   let dialogMessage = options.dialogMessage && options.dialogMessage.length ? options.dialogMessage : 'What app would you like to use?'
@@ -73,7 +75,7 @@ export async function showLocation (options) {
       let googlePlaceId = options.googlePlaceId ? options.googlePlaceId : null
 
       url = prefixes['google-maps']
-      url += `?q=${useTitleForQuery ? encodedTitle : latlng}`
+      url += `?q=${useTitleForQuery ? address || encodedTitle : latlng}`
       url += (isIOS) ? '&api=1' : ''
       url += (googlePlaceId) ? `&query_place_id=${googlePlaceId}` : ''
       url += (useSourceDestiny) ? `&saddr=${sourceLatLng}&daddr=${latlng}` : `&ll=${latlng}`
