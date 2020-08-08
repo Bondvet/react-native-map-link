@@ -6,20 +6,22 @@ interface Options {
     longitude: number | string
     sourceLatitude?: number
     sourceLongitude?: number
+    alwaysIncludeGoogle?: boolean
     googleForceLatLon?: boolean
-    googlePlaceId?: number
+    googlePlaceId?: string
     title?: string
     app?: string
     dialogTitle?: string
     dialogMessage?: string
     cancelText?: string
     appsWhiteList?: string[]
+    appTitles?: { [key: string]: string }
 }
 
 interface PopupStyleProp {
     container?: StyleProp<ViewStyle>,
     itemContainer?: StyleProp<ViewStyle>,
-    image?: StyleProp<ImageStyle>, 
+    image?: StyleProp<ImageStyle>,
     itemText?: StyleProp<TextStyle>,
     headerContainer?: StyleProp<ViewStyle>,
     titleText?: StyleProp<TextStyle>,
@@ -33,14 +35,17 @@ interface PopupStyleProp {
 interface PopupProps {
     isVisible: boolean,
     showHeader?: boolean,
+    customHeader?: React.ReactNode,
+    customFooter?:  React.ReactNode,
     onCancelPressed: () => void,
     onBackButtonPressed: () => void,
     onAppPressed: () => void,
     style?: PopupStyleProp,
     modalProps?: object,
     options: Options,
-    appsWhiteList: string[]
+    appsWhiteList: string[],
+    appTitles?: { [key: string]: string }
 }
 
-export function showLocation(options: Options): Promise<void>;
+export function showLocation(options: Options): Promise<string | undefined | null>;
 export class Popup extends React.Component<PopupProps>{ }
