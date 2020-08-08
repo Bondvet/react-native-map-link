@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "env": {
+    "jest": true
+  },
+  "extends": "@react-native-community",
+  "settings": {
+    "react": {
+        "version": "16.8"
+    }
+  }
+}
